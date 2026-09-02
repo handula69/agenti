@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian Cayman Partners</title>
+  <meta name="description" content="Corporate and fiduciary services in the Cayman Islands: company formation, fund administration, trust structuring, and compliance support." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand" id="brand-name">Company Name</a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav">
+        <ul id="nav-links"><!-- populated by script.js from content.js --></ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===================== HERO / HOME ===================== -->
+    <section id="home" class="hero">
+      <div class="container hero-inner">
+        <p class="eyebrow reveal">Cayman Islands</p>
+        <h1 class="hero-title reveal" id="hero-company-name">Company Name</h1>
+        <p class="hero-tagline reveal" id="hero-tagline">Tagline goes here</p>
+        <p class="hero-subtext reveal" id="hero-subtext">Subtext goes here</p>
+        <a href="#contact" class="btn btn-primary reveal" id="hero-cta">Get Started</a>
+      </div>
+      <div class="hero-backdrop" aria-hidden="true">
+        <svg viewBox="0 0 200 200" preserveAspectRatio="none">
+          <path d="M0,120 C50,160 150,80 200,120 L200,200 L0,200 Z" fill="currentColor"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section id="about" class="section about">
+      <div class="container">
+        <h2 class="section-heading reveal" id="about-heading">About Us</h2>
+        <div id="about-paragraphs" class="about-text"><!-- populated by script.js --></div>
+        <div id="about-stats" class="stats-grid"><!-- populated by script.js --></div>
+      </div>
+    </section>
+
+    <!-- ===================== SERVICES ===================== -->
+    <section id="services" class="section services">
+      <div class="container">
+        <h2 class="section-heading reveal" id="services-heading">Services</h2>
+        <p class="section-subheading reveal" id="services-subheading">Subheading goes here</p>
+        <div class="services-grid" id="services-grid"><!-- populated by script.js --></div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section id="contact" class="section contact">
+      <div class="container">
+        <h2 class="section-heading reveal" id="contact-heading">Contact</h2>
+        <p class="section-subheading reveal" id="contact-subheading">Subheading goes here</p>
+
+        <div class="contact-grid">
+          <form class="contact-form reveal" id="contact-form">
+            <div class="form-row">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required autocomplete="name" />
+            </div>
+            <div class="form-row">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required autocomplete="email" />
+            </div>
+            <div class="form-row">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" id="form-submit">Send Message</button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="contact-details reveal">
+            <div class="contact-item">
+              <span class="contact-label">Address</span>
+              <address id="contact-address"><!-- populated by script.js --></address>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">Phone</span>
+              <a id="contact-phone" href="#"></a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">Email</span>
+              <a id="contact-email" href="#"></a>
+            </div>
+            <div id="contact-map-wrap" class="contact-map" hidden>
+              <iframe id="contact-map" title="Office location" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="footer-brand" id="footer-brand">Company Name</p>
+        <p class="footer-tagline" id="footer-tagline">Tagline</p>
+      </div>
+      <div class="footer-contact">
+        <a id="footer-phone" href="#"></a>
+        <a id="footer-email" href="#"></a>
+      </div>
+      <p class="footer-copyright" id="footer-copyright">&copy; Copyright</p>
+    </div>
+  </footer>
+
+  <script src="content.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
