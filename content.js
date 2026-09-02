@@ -5,10 +5,6 @@
  * This file is the single source of truth for every piece of text, contact
  * detail, and service on the site. Change a value below and the page updates
  * automatically — no HTML/CSS knowledge required.
- *
- * NOTE: All values in this file are PLACEHOLDER content for a fictional
- * company, written so you can see the site fully populated. Replace them
- * with your real company details before publishing.
  * ============================================================================
  */
 
@@ -18,10 +14,10 @@ window.SITE_CONTENT = {
   // SITE-WIDE / BRAND
   // --------------------------------------------------------------------
   site: {
-    companyName: "Meridian Cayman Partners",     // Shown in the nav bar, hero, and footer
-    tagline: "Corporate & Fiduciary Services, Grounded in Cayman Islands Expertise",
+    companyName: "EDB Consultancy SEZC Ltd.",     // Shown in the nav bar, hero, and footer
+    tagline: "Digital Asset Consultancy for Blockchain Funds & Infrastructure Providers",
     // Short line shown under the tagline in the hero section
-    heroSubtext: "We help funds, corporations, and private clients structure, register, and administer their Cayman Islands entities with precision and discretion.",
+    heroSubtext: "We provide digital asset strategy, financial structuring, and operational consultations to General Partners of blockchain funds, digital asset infrastructure companies, and blockchain consulting firms — serving Cayman Islands exempt companies and SEZCs, as well as businesses operating internationally.",
     // Text on the primary call-to-action button in the hero section
     ctaText: "Book a Consultation",
     // Which section the CTA button scrolls to (must match a section id in index.html)
@@ -42,18 +38,21 @@ window.SITE_CONTENT = {
   // ABOUT SECTION
   // --------------------------------------------------------------------
   about: {
-    heading: "About Meridian Cayman Partners",
+    heading: "About EDB Consultancy",
     // Paragraphs are rendered in order; add/remove strings from this array
     // to add/remove paragraphs.
     paragraphs: [
-      "Meridian Cayman Partners is an independent corporate services provider based in George Town, Grand Cayman. For over a decade we have supported investment funds, holding companies, and private clients with the formation and ongoing administration of Cayman Islands entities.",
-      "Our team combines local regulatory knowledge with an international outlook, giving clients a trusted single point of contact for company formation, fund administration, trust structuring, and compliance support — delivered with the discretion and reliability the jurisdiction is known for.",
+      "EDB Consultancy SEZC Ltd. is a professional consultancy firm providing digital asset consultation services to General Partners of blockchain and digital asset funds, digital asset infrastructure companies — including validators, staking providers, and node operators — and blockchain consulting firms.",
+      "We serve Cayman Islands exempt companies and Special Economic Zone Companies (SEZCs), as well as international businesses operating outside the Cayman Islands jurisdiction, offering digital asset strategy, operational, and financial structuring consultations tailored to the realities of blockchain-based business.",
     ],
-    // Small stat/credibility strip shown under the about text
+    // Small credibility strip shown under the about text. These are
+    // descriptive facts, not performance statistics — replace with real
+    // figures (years in business, clients served, etc.) once available;
+    // avoid publishing numbers that can't be backed up.
     stats: [
-      { value: "500+", label: "Entities under administration" },
-      { value: "12+", label: "Years serving Cayman clients" },
-      { value: "30+", label: "Jurisdictions represented" },
+      { value: "SEZC", label: "Registered via Cayman Enterprise City" },
+      { value: "GPs & Funds", label: "Serving blockchain fund General Partners" },
+      { value: "Global", label: "Clients in and outside the Cayman Islands" },
     ],
   },
 
@@ -64,37 +63,37 @@ window.SITE_CONTENT = {
   // --------------------------------------------------------------------
   services: {
     heading: "Our Services",
-    subheading: "A full suite of corporate and fiduciary services for entities operating in and through the Cayman Islands.",
+    subheading: "Consultancy services for blockchain fund General Partners and digital asset infrastructure providers, from investment strategy through day-to-day operations.",
     items: [
       {
-        icon: "building",
-        title: "Company Formation",
-        description: "Incorporation of exempted companies, LLCs, and foundation companies, handled end-to-end with local regulatory filings.",
-      },
-      {
         icon: "chart",
-        title: "Fund Administration",
-        description: "NAV calculation, investor services, and reporting for hedge funds, private equity, and venture capital vehicles.",
-      },
-      {
-        icon: "shield",
-        title: "Trust & Wealth Structuring",
-        description: "Establishment and administration of trusts and private trust companies for succession and asset protection planning.",
+        title: "Digital Assets Investment Advisory",
+        description: "Investment strategy development, due diligence, and risk assessment for digital asset investments, plus market analysis and regulatory advisory across DeFi and blockchain sectors.",
       },
       {
         icon: "briefcase",
-        title: "Registered Office Services",
-        description: "Statutory registered office and agent services, ensuring your entity remains in good standing with local authorities.",
-      },
-      {
-        icon: "file",
-        title: "Compliance & AML Support",
-        description: "Ongoing AML/KYC support, economic substance filings, and regulatory reporting to keep your entity fully compliant.",
+        title: "Finance Management",
+        description: "Financial planning and forecasting, transaction monitoring, treasury management, and cross-jurisdictional tax consulting for blockchain funds, including investor and regulatory reporting.",
       },
       {
         icon: "globe",
-        title: "Corporate Secretarial",
-        description: "Minute-book maintenance, resolutions, and corporate governance support for boards and directors.",
+        title: "Fundraising Services",
+        description: "Capital raising strategy, investor relations, due diligence support, and regulatory compliance for blockchain funds and digital asset ventures.",
+      },
+      {
+        icon: "file",
+        title: "Sales & Marketing",
+        description: "Business development, marketing strategy, event management, and digital presence support to help fund managers build market position.",
+      },
+      {
+        icon: "shield",
+        title: "Risk Management",
+        description: "Operational risk assessment, cybersecurity consulting, compliance monitoring, and crisis management for digital asset custody and fund operations.",
+      },
+      {
+        icon: "building",
+        title: "Operations",
+        description: "Process optimization, technology implementation, vendor management, and reporting systems to streamline fund operations and track performance.",
       },
     ],
   },
@@ -104,7 +103,7 @@ window.SITE_CONTENT = {
   // --------------------------------------------------------------------
   contact: {
     heading: "Get in Touch",
-    subheading: "Speak with our team about your Cayman Islands structuring needs.",
+    subheading: "Speak with our team about digital asset consultancy for your fund or infrastructure business.",
 
     // ------------------------------------------------------------------
     // FORMSPREE — REQUIRED SETUP BEFORE GOING LIVE
@@ -118,16 +117,20 @@ window.SITE_CONTENT = {
 
     // Contact details shown next to the form
     address: {
-      line1: "89 Nexus Way, Camana Bay",
-      line2: "Grand Cayman, KY1-9006",
-      line3: "Cayman Islands",
+      line1: "PO Box CEC-352",
+      line2: "George Town, Grand Cayman",
+      line3: "Cayman Islands, KY1-9012",
     },
-    phone: "+1 (345) 555-0148",
-    email: "info@meridiancaymanpartners.ky",
+    phone: "+1 345 525 2419",
+    // Leave blank until a company email is set up (e.g. on your own website
+    // domain via Google Workspace, Microsoft 365, or Zoho Mail). The Email
+    // row is automatically hidden on the page while this is empty.
+    email: "",
 
     // Optional: set to true and provide embedUrl to show a Google Maps
-    // embed instead of / alongside the plain-text address above.
-    // Get an embed URL from Google Maps: Share > Embed a map > copy the src.
+    // embed instead of / alongside the plain-text address above. Note:
+    // the address above is a PO Box, which Google Maps cannot pin — only
+    // enable this if you add a physical/registered office address.
     showMap: false,
     mapEmbedUrl: "",
   },
@@ -136,8 +139,8 @@ window.SITE_CONTENT = {
   // FOOTER
   // --------------------------------------------------------------------
   footer: {
-    companyName: "Meridian Cayman Partners",
-    tagline: "Corporate & fiduciary services in the Cayman Islands.",
+    companyName: "EDB Consultancy SEZC Ltd.",
+    tagline: "Digital asset consultancy in the Cayman Islands.",
     year: new Date().getFullYear(),
     // Change this if you'd rather hardcode a fixed year instead of "auto"
     copyrightText: "All rights reserved.",

@@ -82,17 +82,22 @@ function renderContent() {
   phoneEl.textContent = c.contact.phone;
   phoneEl.href = `tel:${c.contact.phone.replace(/[^\d+]/g, '')}`;
 
-  const emailEl = document.getElementById('contact-email');
-  emailEl.textContent = c.contact.email;
-  emailEl.href = `mailto:${c.contact.email}`;
+  // Email is optional — hide the row on the page until content.js has one
+  document.getElementById('contact-email-item').hidden = !c.contact.email;
+  document.getElementById('footer-email').hidden = !c.contact.email;
+  if (c.contact.email) {
+    const emailEl = document.getElementById('contact-email');
+    emailEl.textContent = c.contact.email;
+    emailEl.href = `mailto:${c.contact.email}`;
+
+    const footerEmail = document.getElementById('footer-email');
+    footerEmail.textContent = c.contact.email;
+    footerEmail.href = `mailto:${c.contact.email}`;
+  }
 
   const footerPhone = document.getElementById('footer-phone');
   footerPhone.textContent = c.contact.phone;
   footerPhone.href = `tel:${c.contact.phone.replace(/[^\d+]/g, '')}`;
-
-  const footerEmail = document.getElementById('footer-email');
-  footerEmail.textContent = c.contact.email;
-  footerEmail.href = `mailto:${c.contact.email}`;
 
   if (c.contact.showMap && c.contact.mapEmbedUrl) {
     document.getElementById('contact-map-wrap').hidden = false;
