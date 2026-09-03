@@ -106,14 +106,12 @@ window.SITE_CONTENT = {
     subheading: "Speak with our team about digital asset consultancy for your fund or infrastructure business.",
 
     // ------------------------------------------------------------------
-    // FORMSPREE — REQUIRED SETUP BEFORE GOING LIVE
+    // FORMSPREE
     // ------------------------------------------------------------------
-    // 1. Go to https://formspree.io and create a free account.
-    // 2. Create a new form and copy the endpoint it gives you
-    //    (it looks like: https://formspree.io/f/abcdwxyz)
-    // 3. Paste that endpoint below, replacing the placeholder.
-    // Until you do this, the contact form will not deliver submissions.
-    formEndpoint: "https://formspree.io/f/YOUR_FORM_ID",
+    // Submissions are delivered to the notification email(s) configured
+    // on this form in the Formspree dashboard (formspree.io). To change
+    // where they go, edit the form there — no code change needed here.
+    formEndpoint: "https://formspree.io/f/xzebvbeq",
 
     // Contact details shown next to the form
     address: {
