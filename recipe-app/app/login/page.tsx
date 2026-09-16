@@ -1,10 +1,9 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 function LoginForm() {
-  const router = useRouter();
   const params = useSearchParams();
   const [pin, setPin] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -24,8 +23,10 @@ function LoginForm() {
         const data = await res.json().catch(() => ({}));
         throw new Error(data.error || "Přihlášení se nezdařilo.");
       }
-      router.push(params.get("next") || "/");
-      router.refresh();
+      // Plné načtení stránky (ne "tichá" Next.js navigace) - middleware tak
+      // vždy zkontroluje čerstvě nastavenou cookie, ne mezipaměť stránky z doby,
+      // kdy uživatel ještě nebyl přihlášený.
+      window.location.href = params.get("next") || "/";
     } catch (err) {
       setError(err instanceof Error ? err.message : "Přihlášení se nezdařilo.");
     } finally {
