@@ -16,6 +16,13 @@ export function getSupabaseAdmin(): SupabaseClient {
 
   client = createClient(url, key, {
     auth: { persistSession: false },
+    global: {
+      // Next.js "opatchuje" globální fetch a cachuje odpovědi podle URL i napříč
+      // requesty (Data Cache) - beze změny URL (běžný výpis receptů pořád volá
+      // stejný endpoint) appka servírovala jednou natažený, časem zastaralý
+      // snímek dat. Vynutíme no-store, ať se pokaždé čte čerstvě ze Supabase.
+      fetch: (input, init) => fetch(input, { ...init, cache: "no-store" }),
+    },
   });
   return client;
 }
