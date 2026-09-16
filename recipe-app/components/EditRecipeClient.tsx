@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { PhotoItem } from "./PhotoUploader";
 import { ExtractionReviewForm, FormState, buildRecipeInputFromForm } from "./ExtractionReviewForm";
 import { Recipe } from "@/lib/types";
@@ -39,7 +38,6 @@ function recipeToPhotos(recipe: Recipe): PhotoItem[] {
 }
 
 export function EditRecipeClient({ recipe }: { recipe: Recipe }) {
-  const router = useRouter();
   const [photos, setPhotos] = useState<PhotoItem[]>(() => recipeToPhotos(recipe));
   const [form, setForm] = useState<FormState>(() => recipeToForm(recipe));
 
@@ -59,7 +57,7 @@ export function EditRecipeClient({ recipe }: { recipe: Recipe }) {
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || "Uložení změn selhalo.");
-    router.push(`/recipes/${recipe.id}`);
+    window.location.href = `/recipes/${recipe.id}`;
   }
 
   return (
