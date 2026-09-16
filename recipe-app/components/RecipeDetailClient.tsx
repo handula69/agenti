@@ -2,13 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Recipe } from "@/lib/types";
 import { UnitToggle, DisplayMode } from "./UnitToggle";
 import { IngredientRow } from "./IngredientRow";
 
 export function RecipeDetailClient({ recipe }: { recipe: Recipe }) {
-  const router = useRouter();
   const [mode, setMode] = useState<DisplayMode>("cz");
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -26,8 +24,7 @@ export function RecipeDetailClient({ recipe }: { recipe: Recipe }) {
         const data = await res.json().catch(() => ({}));
         throw new Error(data.error || "Smazání receptu selhalo.");
       }
-      router.push("/");
-      router.refresh();
+      window.location.href = "/";
     } catch (err) {
       setError(err instanceof Error ? err.message : "Smazání receptu selhalo.");
       setDeleting(false);

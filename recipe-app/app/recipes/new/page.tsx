@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { PhotoItem, PhotoUploader } from "@/components/PhotoUploader";
 import {
   ExtractionReviewForm,
@@ -51,7 +50,6 @@ function extractedToForm(extracted: ExtractedRecipe): FormState {
 }
 
 export default function NewRecipePage() {
-  const router = useRouter();
   const [photos, setPhotos] = useState<PhotoItem[]>([]);
   const [form, setForm] = useState<FormState | null>(null);
   const [warnings, setWarnings] = useState<string[]>([]);
@@ -106,7 +104,9 @@ export default function NewRecipePage() {
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || "Uložení receptu selhalo.");
-    router.push(`/recipes/${data.recipe.id}`);
+    // Plné načtení, ne tichá Next.js navigace - jinak seznam receptů na "/"
+    // ještě chvíli ukazuje starou (mezipaměťovou) verzi bez nového receptu.
+    window.location.href = `/recipes/${data.recipe.id}`;
   }
 
   if (!form) {
