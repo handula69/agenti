@@ -15,7 +15,7 @@ Webová appka na správu receptů extrahovaných z fotek/screenshotů Instagramu
 
 1. Vytvořte nový projekt na [supabase.com](https://supabase.com).
 2. V SQL editoru spusťte obsah `supabase/schema.sql` - vytvoří tabulky `recipes`, `recipe_steps`, `recipe_ingredients` a storage bucket `recipe-images`.
-3. V Project Settings → API zkopírujte `Project URL` a `service_role` klíč (ne `anon`!).
+3. V Project Settings → API zkopírujte `Project URL` a **legacy** `service_role` klíč (záložka "Legacy anon, service_role API keys", ne `anon`!). Nový formát klíčů Supabase ("secret", `sb_secret_...`) v testu nespolehlivě obcházel Row Level Security a čtení receptů vracelo prázdný seznam i přes uložená data - použijte proto ověřeně funkční legacy `service_role` (JWT tvaru `eyJ...`).
 
 ### 2. Claude API
 
