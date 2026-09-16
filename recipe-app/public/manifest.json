@@ -1,0 +1,17 @@
+{
+  "name": "Rodinné recepty",
+  "short_name": "Recepty",
+  "description": "Recepty extrahované z fotek Instagramu, s převodem CZ/g ↔ EN/cups.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fffbf5",
+  "theme_color": "#c2410c",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
