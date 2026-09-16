@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Recipe } from "@/lib/types";
+import { getCategoryLabel } from "@/lib/categories";
 import { UnitToggle, DisplayMode } from "./UnitToggle";
 import { IngredientRow } from "./IngredientRow";
 
@@ -45,6 +46,9 @@ export function RecipeDetailClient({ recipe }: { recipe: Recipe }) {
       <div className="flex items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold text-stone-900">{title || "(bez názvu)"}</h1>
+          <span className="inline-block text-xs text-brand-700 bg-brand-50 border border-brand-100 rounded px-1.5 py-0.5 mt-1">
+            {getCategoryLabel(recipe.category, mode)}
+          </span>
           <p className="text-sm text-stone-500 mt-1">
             {recipe.servings ? `${recipe.servings} porcí` : null}
             {recipe.prep_minutes ? ` · příprava ${recipe.prep_minutes} min` : null}

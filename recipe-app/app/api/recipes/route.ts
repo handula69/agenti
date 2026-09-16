@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { listRecipes, createRecipe } from "@/lib/recipeRepo";
 import { RecipeInput } from "@/lib/types";
+import { isCategoryKey } from "@/lib/categories";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -8,8 +9,10 @@ export const maxDuration = 60;
 
 export async function GET(req: NextRequest) {
   const search = req.nextUrl.searchParams.get("q") ?? undefined;
+  const categoryParam = req.nextUrl.searchParams.get("category");
+  const category = isCategoryKey(categoryParam) ? categoryParam : undefined;
   try {
-    const recipes = await listRecipes(search);
+    const recipes = await listRecipes(search, category);
     return NextResponse.json({ recipes });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Načtení receptů selhalo.";
@@ -27,6 +30,9 @@ export async function POST(req: NextRequest) {
 
   if (!body.title_cz && !body.title_en) {
     return NextResponse.json({ error: "Recept musí mít alespoň jeden název." }, { status: 400 });
+  }
+  if (!isCategoryKey(body.category)) {
+    body.category = "other";
   }
 
   try {

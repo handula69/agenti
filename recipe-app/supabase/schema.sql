@@ -7,6 +7,7 @@ create table if not exists recipes (
   id uuid primary key default gen_random_uuid(),
   title_cz text not null default '',
   title_en text not null default '',
+  category text not null default 'other',
   servings int,
   prep_minutes int,
   cook_minutes int,
@@ -53,3 +54,8 @@ alter table recipe_ingredients enable row level security;
 insert into storage.buckets (id, name, public)
 values ('recipe-images', 'recipe-images', true)
 on conflict (id) do nothing;
+
+-- Migrace pro už existující databázi (bezpečné spustit i opakovaně) -
+-- doplní sloupec "category", pokud tam ještě není.
+alter table recipes add column if not exists category text not null default 'other';
+create index if not exists recipes_category_idx on recipes(category);

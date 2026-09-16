@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { ExtractedRecipe, UploadedImage } from "./types";
+import { CATEGORY_KEYS, isCategoryKey } from "./categories";
 
 let client: Anthropic | null = null;
 
@@ -25,6 +26,7 @@ Pravidla:
 - Pokud nějaká hodnota (množství, jednotka, čas přípravy, počet porcí) na fotkách chybí nebo není čitelná, NIKDY si ji nevymýšlej - použij null.
 - Pokud si nejsi jistý přečtením některé části (rozmazané, oříznuté, chybí navazující fotka), přidej krátkou českou poznámku do pole "warnings", ať uživatel ví, co zkontrolovat/doplnit ručně.
 - Kroky přípravy zachovej v pořadí, jeden krok = jedna položka pole.
+- Do pole "category" odhadni nejvhodnější kategorii receptu POUZE z množiny: soup (polévky), main (hlavní jídla), side (přílohy), salad (saláty), baking (pečení - slané i sladké pečivo, koláče, chleba), dessert (dezerty, které se nepečou - krémy, zmrzliny, řezy z lednice), drink (nápoje), other (když nic nesedí nebo si nejsi jistý). Pokud si opravdu nejsi jistý, použij "other" a nepiš to do warnings, kategorie je jen orientační a jde ji vždy ručně změnit.
 - Zavolej nástroj record_recipe přesně jednou s kompletním výsledkem.`;
 
 const EXTRACT_TOOL: Anthropic.Tool = {
@@ -35,6 +37,7 @@ const EXTRACT_TOOL: Anthropic.Tool = {
     properties: {
       title_cz: { type: "string" },
       title_en: { type: "string" },
+      category: { type: "string", enum: CATEGORY_KEYS },
       servings: { type: ["number", "null"] },
       prep_minutes: { type: ["number", "null"] },
       cook_minutes: { type: ["number", "null"] },
@@ -58,6 +61,7 @@ const EXTRACT_TOOL: Anthropic.Tool = {
     required: [
       "title_cz",
       "title_en",
+      "category",
       "servings",
       "prep_minutes",
       "cook_minutes",
@@ -124,6 +128,7 @@ export async function extractRecipeFromImages(images: UploadedImage[]): Promise<
   return {
     title_cz: raw.title_cz ?? "",
     title_en: raw.title_en ?? "",
+    category: isCategoryKey(raw.category) ? raw.category : null,
     servings: raw.servings ?? null,
     prep_minutes: raw.prep_minutes ?? null,
     cook_minutes: raw.cook_minutes ?? null,

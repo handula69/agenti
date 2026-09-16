@@ -9,6 +9,7 @@ function recipeToForm(recipe: Recipe): FormState {
   return {
     title_cz: recipe.title_cz,
     title_en: recipe.title_en,
+    category: recipe.category,
     servings: recipe.servings !== null ? String(recipe.servings) : "",
     prep_minutes: recipe.prep_minutes !== null ? String(recipe.prep_minutes) : "",
     cook_minutes: recipe.cook_minutes !== null ? String(recipe.cook_minutes) : "",
