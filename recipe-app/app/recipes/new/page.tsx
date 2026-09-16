@@ -7,8 +7,22 @@ import {
   ExtractionReviewForm,
   FormState,
   buildRecipeInputFromForm,
+  emptyIngredient,
 } from "@/components/ExtractionReviewForm";
 import { ExtractedRecipe } from "@/lib/types";
+
+function emptyForm(): FormState {
+  return {
+    title_cz: "",
+    title_en: "",
+    servings: "",
+    prep_minutes: "",
+    cook_minutes: "",
+    steps_cz: [""],
+    steps_en: [""],
+    ingredients: [emptyIngredient()],
+  };
+}
 
 function extractedToForm(extracted: ExtractedRecipe): FormState {
   const stepsLength = Math.max(extracted.steps_cz.length, extracted.steps_en.length);
@@ -43,6 +57,7 @@ export default function NewRecipePage() {
   const [warnings, setWarnings] = useState<string[]>([]);
   const [extracting, setExtracting] = useState(false);
   const [extractError, setExtractError] = useState<string | null>(null);
+  const [isManual, setIsManual] = useState(false);
 
   async function handleExtract() {
     if (photos.length === 0) {
@@ -63,11 +78,19 @@ export default function NewRecipePage() {
       if (!res.ok) throw new Error(data.error || "Extrakce receptu selhala.");
       setForm(extractedToForm(data));
       setWarnings(data.warnings ?? []);
+      setIsManual(false);
     } catch (err) {
       setExtractError(err instanceof Error ? err.message : "Extrakce receptu selhala.");
     } finally {
       setExtracting(false);
     }
+  }
+
+  function handleManualEntry() {
+    setExtractError(null);
+    setWarnings([]);
+    setIsManual(true);
+    setForm(emptyForm());
   }
 
   async function handleSave() {
@@ -103,13 +126,29 @@ export default function NewRecipePage() {
         >
           {extracting ? "Extrahuji recept z fotek..." : "Extrahovat recept"}
         </button>
+        <button
+          type="button"
+          onClick={handleManualEntry}
+          disabled={extracting}
+          className="w-full rounded-lg border border-stone-300 text-stone-600 py-2.5 font-medium disabled:opacity-50"
+        >
+          Zadat ručně (bez extrakce)
+        </button>
+        <p className="text-xs text-stone-400 text-center">
+          Hodí se, když dojdou kredity na Claude API, fotka je nečitelná, nebo chcete recept prostě napsat sami.
+        </p>
       </div>
     );
   }
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-semibold text-stone-800">Zkontrolujte extrahovaný recept</h1>
+      <button type="button" onClick={() => setForm(null)} className="text-sm text-stone-400 hover:text-stone-600">
+        ← Zpět na nahrání fotek
+      </button>
+      <h1 className="text-xl font-semibold text-stone-800">
+        {isManual ? "Nový recept (ruční zadání)" : "Zkontrolujte extrahovaný recept"}
+      </h1>
       <ExtractionReviewForm
         form={form}
         onFormChange={setForm}
