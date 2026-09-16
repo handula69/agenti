@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { RecipeSummary } from "@/lib/types";
+import { getCategoryLabel } from "@/lib/categories";
 
 export function RecipeCard({ recipe }: { recipe: RecipeSummary }) {
   return (
@@ -20,7 +21,12 @@ export function RecipeCard({ recipe }: { recipe: RecipeSummary }) {
         {recipe.title_en && recipe.title_cz && (
           <p className="text-sm text-stone-500 truncate">{recipe.title_en}</p>
         )}
-        {recipe.servings && <p className="text-xs text-stone-400 mt-0.5">{recipe.servings} porcí</p>}
+        <div className="flex items-center gap-2 mt-0.5">
+          <span className="text-xs text-brand-700 bg-brand-50 border border-brand-100 rounded px-1.5 py-0.5">
+            {getCategoryLabel(recipe.category, "cz")}
+          </span>
+          {recipe.servings && <span className="text-xs text-stone-400">{recipe.servings} porcí</span>}
+        </div>
       </div>
     </Link>
   );

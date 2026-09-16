@@ -22,7 +22,7 @@ export function SearchBar() {
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Hledat recept podle názvu..."
+        placeholder="Hledat podle názvu nebo ingredience..."
         className="flex-1 rounded-lg border border-stone-300 px-3 py-2 focus:border-brand-500 focus:outline-none"
       />
       <button type="submit" className="rounded-lg bg-stone-800 text-white px-4 py-2 text-sm">

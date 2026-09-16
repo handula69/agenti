@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRecipe, updateRecipe, deleteRecipe } from "@/lib/recipeRepo";
 import { RecipeInput } from "@/lib/types";
+import { isCategoryKey } from "@/lib/categories";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -23,6 +24,10 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Neplatný požadavek." }, { status: 400 });
+  }
+
+  if (!isCategoryKey(body.category)) {
+    body.category = "other";
   }
 
   try {

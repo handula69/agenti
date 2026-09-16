@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MetricUnit, UsUnit } from "@/lib/types";
 import { convertToUs, formatUsUnit } from "@/lib/units";
+import { CATEGORIES, CategoryKey } from "@/lib/categories";
 import { PhotoUploader, PhotoItem } from "./PhotoUploader";
 
 const METRIC_UNITS: MetricUnit[] = ["g", "ml", "ks", "lžíce", "lžička", "špetka"];
@@ -22,6 +23,7 @@ export interface FormIngredient {
 export interface FormState {
   title_cz: string;
   title_en: string;
+  category: CategoryKey;
   servings: string;
   prep_minutes: string;
   cook_minutes: string;
@@ -53,6 +55,7 @@ export function buildRecipeInputFromForm(form: FormState) {
   return {
     title_cz: form.title_cz.trim(),
     title_en: form.title_en.trim(),
+    category: form.category,
     servings: toNumberOrNull(form.servings),
     prep_minutes: toNumberOrNull(form.prep_minutes),
     cook_minutes: toNumberOrNull(form.cook_minutes),
@@ -319,6 +322,17 @@ export function ExtractionReviewForm({
           placeholder="Title (EN)"
           className="rounded-lg border border-stone-300 px-3 py-2"
         />
+        <select
+          value={form.category}
+          onChange={(e) => onFormChange({ ...form, category: e.target.value as CategoryKey })}
+          className="rounded-lg border border-stone-300 px-3 py-2 sm:col-span-2"
+        >
+          {CATEGORIES.map((c) => (
+            <option key={c.key} value={c.key}>
+              {c.labelCz} / {c.labelEn}
+            </option>
+          ))}
+        </select>
         <input
           value={form.servings}
           onChange={(e) => onFormChange({ ...form, servings: e.target.value })}

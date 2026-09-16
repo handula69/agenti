@@ -1,11 +1,13 @@
 import { getSupabaseAdmin, uploadRecipeImages, RECIPE_IMAGES_BUCKET } from "./supabaseAdmin";
 import { convertToUs } from "./units";
 import { Recipe, RecipeInput, RecipeSummary, Ingredient, MetricUnit, UsUnit } from "./types";
+import { CategoryKey } from "./categories";
 
 interface RecipeRow {
   id: string;
   title_cz: string;
   title_en: string;
+  category: CategoryKey;
   servings: number | null;
   prep_minutes: number | null;
   cook_minutes: number | null;
@@ -84,6 +86,7 @@ function mapToRecipe(row: RecipeRow, steps: StepRow[], ingredients: IngredientRo
     id: row.id,
     title_cz: row.title_cz,
     title_en: row.title_en,
+    category: row.category,
     servings: row.servings,
     prep_minutes: row.prep_minutes,
     cook_minutes: row.cook_minutes,
@@ -111,16 +114,36 @@ function mapToRecipe(row: RecipeRow, steps: StepRow[], ingredients: IngredientRo
   };
 }
 
-export async function listRecipes(search?: string): Promise<RecipeSummary[]> {
+export async function listRecipes(search?: string, category?: CategoryKey): Promise<RecipeSummary[]> {
   const supabase = getSupabaseAdmin();
   let query = supabase
     .from("recipes")
-    .select("id, title_cz, title_en, cover_image_url, servings, created_at")
+    .select("id, title_cz, title_en, category, cover_image_url, servings, created_at")
     .order("created_at", { ascending: false });
 
-  if (search && search.trim().length > 0) {
-    const term = `%${search.trim()}%`;
-    query = query.or(`title_cz.ilike.${term},title_en.ilike.${term}`);
+  if (category) {
+    query = query.eq("category", category);
+  }
+
+  const trimmed = search?.trim();
+  if (trimmed) {
+    const term = `%${trimmed}%`;
+
+    // Hledat i podle ingrediencí - nejdřív zjistíme id receptů, kde nějaká
+    // ingredience odpovídá hledanému výrazu, a přidáme je do OR filtru.
+    const { data: ingredientMatches, error: ingredientError } = await supabase
+      .from("recipe_ingredients")
+      .select("recipe_id")
+      .or(`name_cz.ilike.${term},name_en.ilike.${term}`);
+    if (ingredientError) throw new Error(`Hledání v ingrediencích selhalo: ${ingredientError.message}`);
+
+    const idsFromIngredients = Array.from(new Set((ingredientMatches ?? []).map((row) => row.recipe_id as string)));
+
+    const orParts = [`title_cz.ilike.${term}`, `title_en.ilike.${term}`];
+    if (idsFromIngredients.length > 0) {
+      orParts.push(`id.in.(${idsFromIngredients.join(",")})`);
+    }
+    query = query.or(orParts.join(","));
   }
 
   const { data, error } = await query;
@@ -155,6 +178,7 @@ export async function createRecipe(input: RecipeInput): Promise<Recipe> {
     .insert({
       title_cz: input.title_cz,
       title_en: input.title_en,
+      category: input.category,
       servings: input.servings,
       prep_minutes: input.prep_minutes,
       cook_minutes: input.cook_minutes,
@@ -189,6 +213,7 @@ export async function updateRecipe(id: string, input: RecipeInput): Promise<Reci
     .update({
       title_cz: input.title_cz,
       title_en: input.title_en,
+      category: input.category,
       servings: input.servings,
       prep_minutes: input.prep_minutes,
       cook_minutes: input.cook_minutes,

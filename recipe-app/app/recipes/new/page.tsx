@@ -14,6 +14,7 @@ function emptyForm(): FormState {
   return {
     title_cz: "",
     title_en: "",
+    category: "other",
     servings: "",
     prep_minutes: "",
     cook_minutes: "",
@@ -31,6 +32,7 @@ function extractedToForm(extracted: ExtractedRecipe): FormState {
   return {
     title_cz: extracted.title_cz,
     title_en: extracted.title_en,
+    category: extracted.category ?? "other",
     servings: extracted.servings !== null ? String(extracted.servings) : "",
     prep_minutes: extracted.prep_minutes !== null ? String(extracted.prep_minutes) : "",
     cook_minutes: extracted.cook_minutes !== null ? String(extracted.cook_minutes) : "",

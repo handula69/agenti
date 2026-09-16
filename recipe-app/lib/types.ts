@@ -1,3 +1,5 @@
+import { CategoryKey } from "./categories";
+
 export type MetricUnit = "g" | "ml" | "ks" | "lžíce" | "lžička" | "špetka";
 export type UsUnit = "cup" | "tbsp" | "tsp" | "oz" | "ks" | "pinch";
 
@@ -18,6 +20,7 @@ export interface Recipe {
   id: string;
   title_cz: string;
   title_en: string;
+  category: CategoryKey;
   servings: number | null;
   prep_minutes: number | null;
   cook_minutes: number | null;
@@ -41,6 +44,7 @@ export interface ExtractedIngredient {
 export interface ExtractedRecipe {
   title_cz: string;
   title_en: string;
+  category: CategoryKey | null;
   servings: number | null;
   prep_minutes: number | null;
   cook_minutes: number | null;
@@ -60,6 +64,7 @@ export interface RecipeSummary {
   id: string;
   title_cz: string;
   title_en: string;
+  category: CategoryKey;
   cover_image_url: string | null;
   servings: number | null;
   created_at: string;
@@ -79,6 +84,7 @@ export interface IngredientInput {
 export interface RecipeInput {
   title_cz: string;
   title_en: string;
+  category: CategoryKey;
   servings: number | null;
   prep_minutes: number | null;
   cook_minutes: number | null;
